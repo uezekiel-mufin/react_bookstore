@@ -1,38 +1,17 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Form from '../Form';
 import Book from './Book';
 
 const Books = () => {
-  const booklists = [
-    {
-      id: 1,
-      author: 'Jane Smith',
-      title: 'A Fairy Tale',
-    },
-    {
-      id: 2,
-      author: 'Andrew Davis',
-      title: 'Throne of Grace',
-    },
-    {
-      id: 3,
-      author: 'Kelvin Sparks',
-      title: 'Eaten Alive',
-    },
-    {
-      id: 4,
-      author: 'Leonard Banks',
-      title: 'Money Changes You',
-    },
-  ];
+  const booklists = useSelector((state) => state.books.books);
+
   return (
     <div>
       <div>
-        {
-        booklists.map((item) => (
-          <Book key={item.id} item={item} />
-        ))
-        }
+        {booklists.map((item) => (
+          <Book key={item.item_id} item={item} />
+        ))}
       </div>
       <Form />
     </div>
