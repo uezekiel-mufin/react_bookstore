@@ -4,10 +4,18 @@ import PropTypes from 'prop-types';
 import RemoveButton from '../Buttons/RemoveButton';
 import { removeBook } from '../../redux/books/bookSlice';
 
-const Book = ({ item }) => {
+const appId = process.env.REACT_APP_ID;
+const bookUrl = process.env.REACT_APP_BOOKS;
+const url = `${bookUrl}/${appId}/books`;
+
+const Book = ({ id, item }) => {
   const dispatch = useDispatch();
-  const handleDelete = (id) => {
-    dispatch(removeBook({ id }));
+  const handleDelete = () => {
+    const delItem = {
+      item_id: id,
+      ...item,
+    };
+    dispatch(removeBook({ url, key: id, item: delItem }));
   };
 
   return (
@@ -16,7 +24,7 @@ const Book = ({ item }) => {
         <section>
           <span>{item.author}</span>
           <span>{item.title}</span>
-          <RemoveButton onClick={() => handleDelete(item.item_id)} />
+          <RemoveButton onClick={() => handleDelete()} />
         </section>
       </div>
     </>
@@ -25,3 +33,4 @@ const Book = ({ item }) => {
 
 export default Book;
 Book.propTypes = { item: PropTypes.objectOf.isRequired };
+Book.propTypes = { id: PropTypes.string.isRequired };

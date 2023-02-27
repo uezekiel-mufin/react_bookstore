@@ -1,23 +1,38 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { v4 as uuid } from 'uuid';
+import { useDispatch } from 'react-redux';
 import { addBook } from '../redux/books/bookSlice';
 import AddButton from './Buttons/AddButton';
 
+const appId = process.env.REACT_APP_ID;
+const bookUrl = process.env.REACT_APP_BOOKS;
+
 const Form = () => {
-  const books = useSelector((state) => state.books.books);
+  const url = `${bookUrl}/${appId}/books`;
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
-    const itemId = `item${books.length + 1}`;
     e.preventDefault();
-    dispatch(addBook({ item_id: itemId, title, author }));
+    const uniqueId = uuid();
+    const smallId = uniqueId.slice(0, 10);
+
+    const item = {
+      item_id: smallId,
+      title,
+      author,
+      category: 'Fiction',
+    };
+    dispatch(addBook({ url, item }));
+    setTitle('');
+    setAuthor('');
   };
 
   return (
     <div>
-      <form>
+      <form id="form">
         <div>
           <input
             type="text"

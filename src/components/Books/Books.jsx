@@ -1,16 +1,27 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+/* eslint-disable operator-linebreak */
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fecthBooks } from '../../redux/books/bookSlice';
 import Form from '../Form';
 import Book from './Book';
 
+const appId = process.env.REACT_APP_ID;
+const bookUrl = process.env.REACT_APP_BOOKS;
+console.log(bookUrl);
+console.log(appId);
 const Books = () => {
   const booklists = useSelector((state) => state.books.books);
+  const dispatch = useDispatch();
+  const url = `${bookUrl}/${appId}/books`;
+  useEffect(() => {
+    dispatch(fecthBooks(url));
+  }, []);
 
   return (
     <div>
       <div>
-        {booklists.map((item) => (
-          <Book key={item.item_id} item={item} />
+        {booklists?.map(([key, value]) => (
+          <Book key={key} id={key} item={value[0]} />
         ))}
       </div>
       <Form />
