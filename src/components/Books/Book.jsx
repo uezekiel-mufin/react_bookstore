@@ -5,11 +5,15 @@ import RemoveButton from '../Buttons/RemoveButton';
 import { removeBook } from '../../redux/books/bookSlice';
 
 const Book = ({ id, item }) => {
-  console.log(item);
-  console.log(id);
+  const appId = 'B5qsOM2xpT42cFtPkgSg';
+  const url = `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${appId}/books`;
   const dispatch = useDispatch();
   const handleDelete = () => {
-    dispatch(removeBook({ id }));
+    const delItem = {
+      item_id: id,
+      ...item,
+    };
+    dispatch(removeBook({ url, key: id, item: delItem }));
   };
 
   return (

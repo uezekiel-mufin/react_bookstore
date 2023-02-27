@@ -4,8 +4,6 @@ import axios from 'axios';
 
 const initialState = {
   books: [],
-  loading: false,
-  errors: '',
 };
 
 export const fecthBooks = createAsyncThunk('fetchBooks', async (url) => {
@@ -18,43 +16,47 @@ export const addBook = createAsyncThunk('addBook', async ({ url, item }) => {
   return { data, item };
 });
 
+export const removeBook = createAsyncThunk(
+  'removeBook',
+  async ({ url, key, item }) => {
+    const { data } = await axios.delete(`${url}/${key}`, item);
+    return { data, key };
+  },
+);
+
 export const bookSlice = createSlice({
   name: 'bookSlice',
   initialState,
-  reducers: {
-    removeBook: (state, action) => {
-      const { id } = action.payload;
-      const newState = { ...state };
-      newState.books = state.books.filter((book) => book[0] !== id);
-      console.log(newState);
-      return newState;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fecthBooks.pending, (state) => {
-      const newState = { ...state };
-      newState.loading = true;
-      return newState;
-    });
     builder.addCase(fecthBooks.fulfilled, (state, action) => {
       const newState = { ...state };
       newState.loading = false;
       newState.books = Object.entries(action.payload);
-      return newState;
-    });
-    builder.addCase(fecthBooks.rejected, (state) => {
-      const newState = { ...state };
-      newState.loading = false;
-      newState.books = [];
-      newState.errors = 'There was an error fetching your books';
+      console.log(newState.books);
       return newState;
     });
     builder.addCase(addBook.fulfilled, (state, action) => {
       const { item } = action.payload;
-      state.books.push(item);
+      const newItem = [
+        item.item_id,
+        [
+          {
+            author: item.author,
+            title: item.title,
+            category: item.category,
+          },
+        ],
+      ];
+      state.books.push(newItem);
+    });
+    builder.addCase(removeBook.fulfilled, (state, action) => {
+      const { key } = action.payload;
+      const newState = { ...state };
+      newState.books = state.books.filter((book) => book[0] !== key);
+      return newState;
     });
   },
 });
 
-export const { removeBook } = bookSlice.actions;
 export default bookSlice.reducer;

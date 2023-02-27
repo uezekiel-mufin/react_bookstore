@@ -13,9 +13,7 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const form = document.getElementById('form');
-    const itemId = `item${books.length + 2}`;
-    console.log(itemId);
+    const itemId = `item${books.length + 1}`;
     const item = {
       item_id: itemId,
       title,
@@ -23,7 +21,8 @@ const Form = () => {
       category: 'Fiction',
     };
     dispatch(addBook({ url, item }));
-    form.reset();
+    setTitle('');
+    setAuthor('');
   };
 
   return (
