@@ -5,11 +5,13 @@ import { fecthBooks } from '../../redux/books/bookSlice';
 import Form from '../Form';
 import Book from './Book';
 
+const appId = 'B5qsOM2xpT42cFtPkgSg';
+
 const Books = () => {
+  const bookUrl = process.env.REACT_APP_BOOKS;
   const booklists = useSelector((state) => state.books.books);
   const dispatch = useDispatch();
-  const appId = 'B5qsOM2xpT42cFtPkgSg';
-  const url = `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${appId}/books`;
+  const url = `${bookUrl}/${appId}/books`;
   useEffect(() => {
     dispatch(fecthBooks(url));
   }, []);

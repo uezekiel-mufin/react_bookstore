@@ -39,7 +39,9 @@
 
 ### Key Features <a name="key-features"></a>
 
-- **Display home page**
+- **Display Books on home page**
+- **Add New Book**
+- **Delete Book**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

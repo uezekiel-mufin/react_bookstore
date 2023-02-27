@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import RemoveButton from '../Buttons/RemoveButton';
 import { removeBook } from '../../redux/books/bookSlice';
 
+const appId = 'B5qsOM2xpT42cFtPkgSg';
+const bookUrl = process.env.REACT_APP_BOOKS;
+const url = `${bookUrl}/${appId}/books`;
 const Book = ({ id, item }) => {
-  const appId = 'B5qsOM2xpT42cFtPkgSg';
-  const url = `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${appId}/books`;
   const dispatch = useDispatch();
   const handleDelete = () => {
     const delItem = {

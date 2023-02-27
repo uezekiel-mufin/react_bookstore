@@ -1,21 +1,26 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { v4 as uuid } from 'uuid';
+import { useDispatch } from 'react-redux';
 import { addBook } from '../redux/books/bookSlice';
 import AddButton from './Buttons/AddButton';
 
+const appId = 'B5qsOM2xpT42cFtPkgSg';
+const bookUrl = process.env.REACT_APP_BOOKS;
+
 const Form = () => {
-  const appId = 'B5qsOM2xpT42cFtPkgSg';
-  const url = `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${appId}/books`;
-  const books = useSelector((state) => state.books.books);
+  const url = `${bookUrl}/${appId}/books`;
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const itemId = `item${books.length + 1}`;
+    const uniqueId = uuid();
+    const smallId = uniqueId.slice(0, 10);
+
     const item = {
-      item_id: itemId,
+      item_id: smallId,
       title,
       author,
       category: 'Fiction',
