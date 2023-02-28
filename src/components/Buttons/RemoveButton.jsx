@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const RemoveButton = ({ onClick }) => (
-  <button onClick={onClick} type="button">
+  <button onClick={onClick} type="button" className="pl-4 capitalize">
     remove
   </button>
 );

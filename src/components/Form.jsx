@@ -31,26 +31,28 @@ const Form = () => {
   };
 
   return (
-    <div>
-      <form id="form">
+    <div className="w-full mt-[2.5rem] pt-7">
+      <h2 className="text-[#888888] text-[1.25rem] font-bold">Add New Book</h2>
+      <form className="flex md:flex-row flex-col gap-4 md:gap-8 mt-[1.188rem] w-full">
+        <input
+          type="text"
+          placeholder="Book Title"
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
+          className="w-full px-4 py-4 rounded-lg border border-solid border-[#e8e8e8] focus:outline-none"
+        />
+
+        <input
+          type="text"
+          id="author"
+          placeholder="Author"
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+          className="w-full px-4 py-4 rounded-lg border border-solid border-[#e8e8e8] focus:outline-none"
+        />
         <div>
-          <input
-            type="text"
-            placeholder="Book Title"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-          />
+          <AddButton handleSubmit={handleSubmit} />
         </div>
-        <div>
-          <input
-            type="text"
-            id="author"
-            placeholder="Author"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-          />
-        </div>
-        <AddButton handleSubmit={handleSubmit} />
       </form>
     </div>
   );

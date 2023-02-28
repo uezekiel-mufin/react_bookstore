@@ -1,8 +1,8 @@
 import React from 'react';
 
 const Categories = () => (
-  <div>
-    <button type="button">Check Status</button>
+  <div className="flex p-20">
+    <h1 className="font-bold  text-4xl">Under Construction</h1>
   </div>
 );
 
