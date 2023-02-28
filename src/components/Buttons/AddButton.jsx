@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const AddButton = ({ handleSubmit }) => (
-  <button onClick={handleSubmit} type="submit">
+  <button
+    onClick={handleSubmit}
+    type="submit"
+    className="flex text-white justify-center items-center bg-[#0290ff] px-4 py-2 w-[150px]"
+  >
     Add book
   </button>
 );
