@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -12,6 +12,7 @@ const bookUrl = process.env.REACT_APP_BOOKS;
 const url = `${bookUrl}/${appId}/books`;
 
 const Book = ({ id, item }) => {
+  const menu = useSelector((state) => state.menu.menuBar);
   const dispatch = useDispatch();
   const [progress, setProgress] = useState(65);
   const handleDelete = () => {
@@ -27,7 +28,11 @@ const Book = ({ id, item }) => {
       <div>
         <section className="grid md:grid-cols-2 gap-8 md:justify-between shadow-lg bg-white p-4 py-8 md:p-8 rounded-lg">
           <div className="flex flex-col items-center md:items-start">
-            <h4 className="text-[#121212] text-sm font-bold opacity-50">
+            <h4
+              className={`text-[#121212] text-sm font-bold ${
+                menu ? '' : 'opacity-50'
+              }`}
+            >
               {item.category}
             </h4>
             <h2 className="text-xl md:text-2xl font-bold capitalize">
@@ -55,11 +60,15 @@ const Book = ({ id, item }) => {
               </span>
               <span>
                 <p className="text-xl md:text-[2rem] text-[#121212]">{`${progress}%`}</p>
-                <p className="text-sm opacity-50">Completed</p>
+                <p className={`text-sm ${menu ? '' : 'opacity-50'}`}>
+                  Completed
+                </p>
               </span>
             </div>
             <div className="flex justify-center items-start pl-4 md:pl-[3.688rem] flex-col">
-              <h4 className="text-[#121212] opacity-50 text-sm">
+              <h4
+                className={`text-[#121212] ${menu ? '' : 'opacity-50'} text-sm`}
+              >
                 Current Chapter
               </h4>
               <h3 className="text-md text-[#121212]">Chapter 17</h3>
@@ -78,5 +87,7 @@ const Book = ({ id, item }) => {
 };
 
 export default Book;
-Book.propTypes = { item: PropTypes.objectOf.isRequired };
-Book.propTypes = { id: PropTypes.string.isRequired };
+Book.propTypes = {
+  item: PropTypes.objectOf.isRequired,
+  id: PropTypes.string.isRequired,
+};

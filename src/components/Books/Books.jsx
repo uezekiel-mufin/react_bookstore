@@ -13,10 +13,10 @@ const Books = () => {
   const url = `${bookUrl}/${appId}/books`;
   useEffect(() => {
     dispatch(fecthBooks(url));
-  }, []);
+  }, [dispatch, url]);
 
   return (
-    <div className="px-4 py-20 md:px-20 pb-40 divide-y-2">
+    <div className="px-4 py-20 md:px-20 pb-40 divide-y-2 z-0">
       <div className="space-y-4">
         {booklists?.map(([key, value]) => (
           <Book key={key} id={key} item={value[0]} />
