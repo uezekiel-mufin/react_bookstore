@@ -19,7 +19,7 @@ const Books = () => {
 
   return (
     <div>
-      <div>
+      <div className="p-20 space-y-4">
         {booklists?.map(([key, value]) => (
           <Book key={key} id={key} item={value[0]} />
         ))}

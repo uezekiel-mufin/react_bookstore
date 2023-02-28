@@ -31,9 +31,7 @@ export const bookSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fecthBooks.fulfilled, (state, action) => {
       const newState = { ...state };
-      newState.loading = false;
       newState.books = Object.entries(action.payload);
-      console.log(newState.books);
       return newState;
     });
     builder.addCase(addBook.fulfilled, (state, action) => {

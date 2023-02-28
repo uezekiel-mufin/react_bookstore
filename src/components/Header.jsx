@@ -31,7 +31,7 @@ const Header = () => {
                 className={`list-none text-sm transition-all ease-in-out duration-400 ${
                   activeLink === link.id
                     ? 'text-black text-lg'
-                    : 'text-gray-600'
+                    : 'text-gray-500'
                 }`}
                 onClick={() => setActiveLink(link.id)}
                 aria-hidden="true"
